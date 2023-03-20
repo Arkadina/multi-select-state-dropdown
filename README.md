@@ -6,7 +6,7 @@ Challenge taken from <a href="https://www.youtube.com/watch?v=V2zEAXLQbF4&ab_cha
 
 ## Libraries
 
-@heroicons/react & framer-motion
+@heroicons/react & framer-motion.
 
 ## Start server
 

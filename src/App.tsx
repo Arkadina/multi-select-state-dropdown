@@ -12,7 +12,10 @@ type TStates = {
 
 function App() {
     const [isDropdownActive, setIsDropdownActive] = useState(false);
+    const [newStates, setNewStates] = useState(states);
     const [selected, setSelected] = useState<TStates[]>([] as TStates[]);
+
+    console.log(selected);
 
     return (
         <div className="App">
@@ -20,12 +23,12 @@ function App() {
                 className="buttonState"
                 onClick={() => setIsDropdownActive(!isDropdownActive)}
             >
-                {selected.length} Select state
+                {selected.length} Selected states
                 <ArrowDownIcon className="icon h-1 w-1 text-blue-500" />
             </button>
             {isDropdownActive && (
                 <div className="stateContainer">
-                    {states.map((item) => (
+                    {newStates.map((item) => (
                         <GridItemContainer
                             item={item}
                             setSelected={setSelected}
@@ -49,7 +52,9 @@ function GridItemContainer({
     setSelected: Function;
     selected: TStates[];
 }) {
-    const [isChecked, setIsChecked] = useState(false);
+    const [isChecked, setIsChecked] = useState(
+        selected.includes(item) ? true : false
+    );
 
     function handleOnChange(item: TStates) {
         if (isChecked) {
@@ -67,7 +72,7 @@ function GridItemContainer({
     }
 
     return (
-        <div>
+        <div style={isChecked ? { fontWeight: "600" } : {}}>
             <input
                 type="checkbox"
                 checked={isChecked}
