@@ -1,6 +1,5 @@
-import Dispatch, { useState, SetStateAction } from "react";
+import { useState } from "react";
 import { ArrowDownIcon } from "@heroicons/react/24/solid";
-import { motion } from "framer-motion";
 
 import states from "./states.json";
 
@@ -15,7 +14,6 @@ function App() {
     const [isDropdownActive, setIsDropdownActive] = useState(false);
     const [selected, setSelected] = useState<TStates[]>([] as TStates[]);
 
-    console.log(selected);
     return (
         <div className="App">
             <button
@@ -54,8 +52,18 @@ function GridItemContainer({
     const [isChecked, setIsChecked] = useState(false);
 
     function handleOnChange(item: TStates) {
-        setIsChecked(!isChecked);
-        setSelected([...selected, item]);
+        if (isChecked) {
+            if (selected.includes(item)) {
+                const index = selected.indexOf(item);
+                const newArray = selected;
+                newArray.splice(index, 1);
+                setSelected([...newArray]);
+                setIsChecked(!isChecked);
+            }
+        } else {
+            setSelected([...selected, item]);
+            setIsChecked(!isChecked);
+        }
     }
 
     return (
